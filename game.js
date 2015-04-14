@@ -248,8 +248,8 @@ function createCanvasController(canvas) {
   function drawMyMissiles(ship, playerIndex) {
     var shipImg = new Image();
     shipImg.src = imgSrc;
-    ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x, ship.y + 21, 2, 10);
-    ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x + 37, ship.y + 21, 2, 10);
+    ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x, ship.y - 42, 2, 10);
+    ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x + 37, ship.y - 42, 2, 10);
   }
   
 
