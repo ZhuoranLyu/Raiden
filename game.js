@@ -1,5 +1,5 @@
 angular.module('myApp', [])
-.run(['$translate', '$log', 'realTimeService', 'randomService',
+.run(['$translate', '$log', 'realTimeService', 'randomService', 
   function ($translate, $log, realTimeService, randomService) {
     'use strict';
 
@@ -33,11 +33,11 @@ function createCanvasController(canvas) {
 
   // Game state
   var allShips; // allShips[playerIndex]  is the ship of playerIndex
-  var myShip; 
+  var myShip;   // the ship of current player
   var allScores;
-  var enemyList; 
+  var enemyList;  // consists of enemy ships and their missles
   var d; //Direction: "right", "left", "up", "down"
-  var playerMissles; // 
+  var playerMissles; // The missles fired by player
   var startMatchTime; // For displaying a countdown.
 
   function gotStartMatch(params) {
@@ -50,6 +50,10 @@ function createCanvasController(canvas) {
     //foodCreatedNum = 0;
     allShips = [];
     allScores = [];
+
+$log.info("calling gameLogic:");
+    gameLogic.initialize();
+
     for (var index = 0; index < playersInfo.length; index++) {
       allShips[index] = createShip(index);
       allScores[index] = 0;
@@ -67,7 +71,7 @@ function createCanvasController(canvas) {
     // {f: foodCreatedNum, s: score, a: snake_array}
     // The array representing the cells of a player's snake.
     var messageObject = angular.fromJson(messageString);
-    allSnakes[fromPlayerIndex] = messageObject.a;
+    allShips[fromPlayerIndex] = messageObject.a;
     allScores[fromPlayerIndex] = messageObject.s;
     while (foodCreatedNum < messageObject.f) {
       create_food();
@@ -196,7 +200,7 @@ function createCanvasController(canvas) {
   }
 
   function draw() {
-    //To avoid the snake trail we need to paint the BG on every frame
+    //To avoid the ship trail we need to paint the BG on every frame
     //Lets paint the canvas now
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
@@ -204,17 +208,18 @@ function createCanvasController(canvas) {
     ctx.strokeRect(0, 0, canvasWidth, canvasHeight);
 
     var i;
-    //for (i = 0; i < allSnakes.length; i++) {
+    //for (i = 0; i < allShips.length; i++) {
     //  if (i !== yourPlayerIndex) {
-    //    drawSnake(allSnakes[i], i);
+    //    drawship(allShips[i], i);
     //  }
     //}
 
-    // Your snake is always drawn last (so it will be completely visible).
+    // Your ship is always drawn last (so it will be completely visible).
     drawShip(myShip, yourPlayerIndex);
 
-		//Lets paint the food
-		//paint_cell(food.x, food.y, 'green');
+		//Lets paint the enenies
+		//drawEnemies(enemyList, yourPlayerIndex);
+
 		//Lets paint the score
 		for (i = 0; i < allScores.length; i++) {
       ctx.font = '12px sans-serif';
@@ -230,7 +235,8 @@ function createCanvasController(canvas) {
   // draw your ship on the specific position
   function drawShip(ship, playerIndex) {
     var shipImg = new Image();
-    shipImg.src = "";
+    shipImg.src = "imgs/sprites.png";
+
     ctx.drawImage(shipImg, ship.x, ship.y);
   }
   
