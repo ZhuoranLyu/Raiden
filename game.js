@@ -12,6 +12,7 @@ var cellHeight = 10;
 var rowsNum = canvasWidth / cellWidth;
 var colsNum = canvasHeight / cellHeight;
 var drawEveryMilliseconds = 50;
+var imgSrc = "imgs/sprites.png"
 
 // There are 1-8 players.
 // Colors:
@@ -216,8 +217,14 @@ function createCanvasController(canvas) {
     // Your ship is always drawn last (so it will be completely visible).
     drawShip(myShip, yourPlayerIndex);
 
-		//Lets paint the enenies
+		// Paint the enenies
 		//drawEnemies(enemyList, yourPlayerIndex);
+
+    // Paint my missiles
+    drawMyMissiles(myShip, yourPlayerIndex);
+
+    // Paint enemy missiles
+    // drawEnemyMissiles(enemyList);
 
 		//Lets paint the score
 		for (i = 0; i < allScores.length; i++) {
@@ -234,8 +241,15 @@ function createCanvasController(canvas) {
   // draw your ship on the specific position
   function drawShip(ship, playerIndex) {
     var shipImg = new Image();
-    shipImg.src = "imgs/sprites.png";
+    shipImg.src = imgSrc;
     ctx.drawImage(shipImg, 0, 0, 37, 42, ship.x, ship.y, 37, 42);
+  }
+
+  function drawMyMissiles(ship, playerIndex) {
+    var shipImg = new Image();
+    shipImg.src = imgSrc;
+    ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x, ship.y + 21, 2, 10);
+    ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x + 37, ship.y + 21, 2, 10);
   }
   
 
