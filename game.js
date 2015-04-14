@@ -38,8 +38,10 @@ function createCanvasController(canvas) {
   var allScores;
   var enemyList;  // consists of enemy ships and their missles
   var d; //Direction: "right", "left", "up", "down"
-  var playerMissles = []; // The missles fired by player
+  var playerLeftMissles = []; // The left missles fired by player
+  var playerRightMissles = []; // The right missles fired by player
   var startMatchTime; // For displaying a countdown.
+  var shoot = 1;
 
   function gotStartMatch(params) {
     yourPlayerIndex = params.yourPlayerIndex;
@@ -170,9 +172,9 @@ function createCanvasController(canvas) {
 		//These were the position of the ship.
 		//We will increment it to get the new ship position
 		//Lets add proper direction based movement now
-		if (d === "right" && myShip.x < 270) {
+		if (d === "right" && myShip.x < 250) {
       myShip.x += 10;
-    } else if (d === "left" && myShip.x > 30) {
+    } else if (d === "left" && myShip.x > 20) {
       myShip.x -= 10;
     } else if (d === "up" && myShip.y > 30) {
       myShip.y -= 10;
@@ -198,7 +200,7 @@ function createCanvasController(canvas) {
     
     sendMessage(isReliable);
     draw();
-    playerMissles = [];
+    //playerMissles = [];
   }
 
   function draw() {
@@ -249,13 +251,28 @@ function createCanvasController(canvas) {
   function drawMyMissiles(ship, playerIndex) {
     var shipImg = new Image();
     shipImg.src = imgSrc;
-    for (var i = ship.y - 21; i > 0; i -= 42) {
-      playerMissles.push({x: ship.x, y: i});
-      playerMissles.push({x: ship.x + 37, y: i});
+    //shoot every 100 
+    if (shoot){
+      playerLeftMissles.push({x: ship.x, y: ship.y});
+      playerRightMissles.push({x: ship.x + 37, y: ship.y});
+    }
+    shoot = 1-shoot;
+    // Move both left and right missles forward
+    for (var i = 0; i < playerLeftMissles.length-1; i++){
+      playerLeftMissles[i].y -= 30;
+    }
+    for (var i = 0; i < playerRightMissles.length-1; i++){
+      playerRightMissles[i].y -= 30;
     }
 
-    for (var j = 0; j < playerMissles.length; j++) {
-      ctx.drawImage(shipImg, 0, 30, 2, 10, playerMissles[j].x, playerMissles[j].y, 2, 10);
+    if (playerLeftMissles[0].y <= 0){      
+      playerLeftMissles.shift();
+      playerRightMissles.shift(); 
+    }
+
+    for (var j = 0; j < playerLeftMissles.length; j++) {
+      ctx.drawImage(shipImg, 0, 30, 2, 10, playerLeftMissles[j].x, playerLeftMissles[j].y, 2, 10);
+      ctx.drawImage(shipImg, 0, 30, 2, 10, playerRightMissles[j].x, playerRightMissles[j].y, 2, 10); 
     }
     
     // ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x, ship.y - 21 , 2, 10);
