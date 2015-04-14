@@ -38,7 +38,7 @@ function createCanvasController(canvas) {
   var allScores;
   var enemyList;  // consists of enemy ships and their missles
   var d; //Direction: "right", "left", "up", "down"
-  var playerMissles; // The missles fired by player
+  var playerMissles = []; // The missles fired by player
   var startMatchTime; // For displaying a countdown.
 
   function gotStartMatch(params) {
@@ -198,6 +198,7 @@ function createCanvasController(canvas) {
     
     sendMessage(isReliable);
     draw();
+    playerMissles = [];
   }
 
   function draw() {
@@ -248,8 +249,17 @@ function createCanvasController(canvas) {
   function drawMyMissiles(ship, playerIndex) {
     var shipImg = new Image();
     shipImg.src = imgSrc;
-    ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x, ship.y - 42, 2, 10);
-    ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x + 37, ship.y - 42, 2, 10);
+    for (var i = ship.y - 21; i > 0; i -= 42) {
+      playerMissles.push({x: ship.x, y: i});
+      playerMissles.push({x: ship.x + 37, y: i});
+    }
+
+    for (var j = 0; j < playerMissles.length; j++) {
+      ctx.drawImage(shipImg, 0, 30, 2, 10, playerMissles[j].x, playerMissles[j].y, 2, 10);
+    }
+    
+    // ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x, ship.y - 21 , 2, 10);
+    // ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x + 37, ship.y - 21, 2, 10);
   }
   
 
