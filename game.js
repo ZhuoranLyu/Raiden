@@ -41,7 +41,7 @@ function createCanvasController(canvas) {
   var playerLeftMissles = []; // The left missles fired by player
   var playerRightMissles = []; // The right missles fired by player
   var startMatchTime; // For displaying a countdown.
-  var shoot = 1;
+  var shootMissles = 0;
 
   function gotStartMatch(params) {
     yourPlayerIndex = params.yourPlayerIndex;
@@ -251,17 +251,17 @@ function createCanvasController(canvas) {
   function drawMyMissiles(ship, playerIndex) {
     var shipImg = new Image();
     shipImg.src = imgSrc;
-    //shoot every 100 
-    if (shoot){
+    //shoot every 200 Milliseconds.
+    if (shootMissles%4 === 0){
       playerLeftMissles.push({x: ship.x, y: ship.y});
       playerRightMissles.push({x: ship.x + 37, y: ship.y});
     }
-    shoot = 1-shoot;
+    shootMissles++;
     // Move both left and right missles forward
-    for (var i = 0; i < playerLeftMissles.length-1; i++){
+    for (var i = 0; i < playerLeftMissles.length; i++){
       playerLeftMissles[i].y -= 30;
     }
-    for (var i = 0; i < playerRightMissles.length-1; i++){
+    for (var i = 0; i < playerRightMissles.length; i++){
       playerRightMissles[i].y -= 30;
     }
 
