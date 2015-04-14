@@ -51,8 +51,8 @@ function createCanvasController(canvas) {
     allShips = [];
     allScores = [];
 
-$log.info("calling gameLogic:");
-    gameLogic.initialize();
+    //$log.info("calling gameLogic:");
+    //gameLogic.initialize();
 
     for (var index = 0; index < playersInfo.length; index++) {
       allShips[index] = createShip(index);
@@ -114,7 +114,7 @@ $log.info("calling gameLogic:");
   function setDrawInterval() {
     stopDrawInterval();
     // Every 2 food pieces we increase the snake speed (to a max speed of 50ms interval).
-    var intervalMillis = Math.max(50, drawEveryMilliseconds - 10 * Math.floor(foodCreatedNum / 2));
+    var intervalMillis = 50;//= Math.max(50, drawEveryMilliseconds - 10 * Math.floor(foodCreatedNum / 2));
     drawInterval = setInterval(updateAndDraw, intervalMillis);
   }
 
@@ -124,7 +124,7 @@ $log.info("calling gameLogic:");
 
   function createShip(playerIndex)
   {
-		var ship = {x:400, y:150}; 
+		var ship = {x:140, y:430}; 
     return ship;
   }
 
@@ -139,46 +139,46 @@ $log.info("calling gameLogic:");
       return;
     }
     var secondsFromStart = Math.floor((new Date().getTime() - startMatchTime) / 1000);
-    if (secondsFromStart < 3) {
-      // Countdown to really start
-      changeDirQueue = []; // Clear any direction changes in the queue
-      draw();
-      // Draw countdown
-      var secondsToReallyStart = 3 - secondsFromStart;
-
-      // Gives you a hint what is your color
-      var yourColor = playerSnakeColor[yourPlayerIndex];
-      ctx.fillStyle = yourColor;
-      ctx.font = '80px sans-serif';
-      ctx.fillText("" + secondsToReallyStart, canvasWidth / 2, canvasHeight / 2);
-
-      ctx.font = '20px sans-serif';
-      var msg = $translate.instant("YOUR_SNAKE_COLOR_IS",
-        {color: $translate.instant(yourColor.toUpperCase())});
-      ctx.fillText(msg, canvasWidth / 4 - 30, canvasHeight / 4 - 30);
-      return;
-    }
+    //if (secondsFromStart < 3) {
+    //  // Countdown to really start
+    //  changeDirQueue = []; // Clear any direction changes in the queue
+    //  draw();
+    //  // Draw countdown
+    //  var secondsToReallyStart = 3 - secondsFromStart;
+//
+    //  // Gives you a hint what is your color
+    //  var yourColor = playerSnakeColor[yourPlayerIndex];
+    //  ctx.fillStyle = yourColor;
+    //  ctx.font = '80px sans-serif';
+    //  ctx.fillText("" + secondsToReallyStart, canvasWidth / 2, canvasHeight / 2);
+//
+    //  ctx.font = '20px sans-serif';
+    //  var msg = $translate.instant("YOUR_SNAKE_COLOR_IS",
+    //    {color: $translate.instant(yourColor.toUpperCase())});
+    //  ctx.fillText(msg, canvasWidth / 4 - 30, canvasHeight / 4 - 30);
+    //  return;
+    //}
 
     changeDirection();
 
 		//The movement code for the ship to come here.
 		//The logic is simple
 		
-		var nx = myShip.x;
-		var ny = myShip.y;
+		//var nx = myShip.x;
+		//var ny = myShip.y;
 		//These were the position of the ship.
 		//We will increment it to get the new ship position
 		//Lets add proper direction based movement now
-		if (d === "right" && nx < colsNum-1) {
-      nx++;
-    } else if (d === "left" && nx > 0) {
-      nx--;
-    } else if (d === "up" && ny < rowsNum-1) {
-      ny--;
-    } else if (d === "down" && ny > 0) {
-      ny++;
+		if (d === "right" && myShip.x < 270) {
+      myShip.x += 10;
+    } else if (d === "left" && myShip.x > 30) {
+      myShip.x -= 10;
+    } else if (d === "up" && myShip.y > 30) {
+      myShip.y -= 10;
+    } else if (d === "down" && myShip.y < 440) {
+      myShip.y += 10;
     }
-
+    d = "";
 		//Lets add the game over clauses now
 		//This will restart the game if the snake hits the wall
 		//Lets add the code for body collision
@@ -206,7 +206,6 @@ $log.info("calling gameLogic:");
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     ctx.strokeStyle = "black";
     ctx.strokeRect(0, 0, canvasWidth, canvasHeight);
-
     var i;
     //for (i = 0; i < allShips.length; i++) {
     //  if (i !== yourPlayerIndex) {
@@ -236,8 +235,7 @@ $log.info("calling gameLogic:");
   function drawShip(ship, playerIndex) {
     var shipImg = new Image();
     shipImg.src = "imgs/sprites.png";
-
-    ctx.drawImage(shipImg, ship.x, ship.y);
+    ctx.drawImage(shipImg, 0, 0, 37, 42, ship.x, ship.y, 37, 42);
   }
   
 
