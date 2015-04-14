@@ -12,7 +12,6 @@ var cellHeight = 10;
 var rowsNum = canvasWidth / cellWidth;
 var colsNum = canvasHeight / cellHeight;
 var drawEveryMilliseconds = 50;
-var imgSrc = "imgs/sprites.png"
 
 // There are 1-8 players.
 // Colors:
@@ -36,12 +35,14 @@ function createCanvasController(canvas) {
   var allShips; // allShips[playerIndex]  is the ship of playerIndex
   var myShip;   // the ship of current player
   var allScores;
+  var allEnemies;
   var enemyList;  // consists of enemy ships and their missles
   var d; //Direction: "right", "left", "up", "down"
-  var playerLeftMissles = []; // The left missles fired by player
-  var playerRightMissles = []; // The right missles fired by player
+  var playerLeftMissles; // The left missles fired by player
+  var playerRightMissles; // The right missles fired by player
   var startMatchTime; // For displaying a countdown.
   var shootMissles = 0;
+  var imgSrc = "imgs/sprites.png";
 
   function gotStartMatch(params) {
     yourPlayerIndex = params.yourPlayerIndex;
@@ -53,12 +54,17 @@ function createCanvasController(canvas) {
     //foodCreatedNum = 0;
     allShips = [];
     allScores = [];
+    allEnemies = [];
+    enemyList = [];
+    playerLeftMissles = [];
+    playerRightMissles = [];
 
     //$log.info("calling gameLogic:");
     //gameLogic.initialize();
 
     for (var index = 0; index < playersInfo.length; index++) {
       allShips[index] = createShip(index);
+      allEnemies[index] = createEnemy(index);
       allScores[index] = 0;
     }
     myShip = allShips[yourPlayerIndex];
@@ -131,9 +137,11 @@ function createCanvasController(canvas) {
     return ship;
   }
 
-	function createEnemy()
-	{
-	
+	function createEnemy() {
+    var enemy_circle = {x: 0, y: -50, health: 10, sprite: 'enemy_circle',
+                B: 150, C: 1.2, E: 75};
+
+    enemyList.push(enemy_circle);
   }
 
   function updateAndDraw()
@@ -220,14 +228,14 @@ function createCanvasController(canvas) {
     // Your ship is always drawn last (so it will be completely visible).
     drawShip(myShip, yourPlayerIndex);
 
-		// Paint the enenies
-		//drawEnemies(enemyList, yourPlayerIndex);
+		// Paint the enemies
+		drawEnemies(enemyList, yourPlayerIndex);
 
     // Paint my missiles
     drawMyMissiles(myShip, yourPlayerIndex);
 
     // Paint enemy missiles
-    // drawEnemyMissiles(enemyList);
+    // drawEnemyMissiles(enemyList, yourPlayerIndex);
 
 		//Lets paint the score
 		for (i = 0; i < allScores.length; i++) {
@@ -252,7 +260,7 @@ function createCanvasController(canvas) {
     var shipImg = new Image();
     shipImg.src = imgSrc;
     //shoot every 200 Milliseconds.
-    if (shootMissles%4 === 0){
+    if (shootMissles % 4 === 0){
       playerLeftMissles.push({x: ship.x, y: ship.y});
       playerRightMissles.push({x: ship.x + 37, y: ship.y});
     }
@@ -274,9 +282,16 @@ function createCanvasController(canvas) {
       ctx.drawImage(shipImg, 0, 30, 2, 10, playerLeftMissles[j].x, playerLeftMissles[j].y, 2, 10);
       ctx.drawImage(shipImg, 0, 30, 2, 10, playerRightMissles[j].x, playerRightMissles[j].y, 2, 10); 
     }
-    
-    // ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x, ship.y - 21 , 2, 10);
-    // ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x + 37, ship.y - 21, 2, 10);
+  }
+
+  function drawEnemies(enemies, playerIndex) {
+    var shipImg = new Image();
+    shipImg.src = imgSrc;
+
+    for (var i = 0; i < enemies.length; i++) {
+      var enemy = enemies[i];
+      ctx.drawImage(shipImg, 158, 0, 32, 33, enemy.x, enemy.y, 32, 33);
+    }
   }
   
 
