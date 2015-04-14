@@ -267,14 +267,17 @@ function createCanvasController(canvas) {
 
     if (playerLeftMissles[0].y <= 0){      
       playerLeftMissles.shift();
+    }
+    if (playerRightMissles[0].y <= 0){      
       playerRightMissles.shift(); 
     }
 
     for (var j = 0; j < playerLeftMissles.length; j++) {
       ctx.drawImage(shipImg, 0, 30, 2, 10, playerLeftMissles[j].x, playerLeftMissles[j].y, 2, 10);
+    }
+    for (var j = 0; j < playerRightMissles.length; j++) {
       ctx.drawImage(shipImg, 0, 30, 2, 10, playerRightMissles[j].x, playerRightMissles[j].y, 2, 10); 
     }
-    
     // ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x, ship.y - 21 , 2, 10);
     // ctx.drawImage(shipImg, 0, 30, 2, 10, ship.x + 37, ship.y - 21, 2, 10);
   }
