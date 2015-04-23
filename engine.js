@@ -35,6 +35,7 @@ var Game = new function() {
     this.canvasMultiplier= 1;
     this.setupMobile();
 
+    
     this.width = this.canvas.width;
     this.height= this.canvas.height;
 
@@ -78,11 +79,12 @@ var Game = new function() {
   var maxTime = 1/30;
   // Game Loop
   this.loop = function() { 
+
     var curTime = new Date().getTime();
     requestAnimationFrame(Game.loop);
     var dt = (curTime - lastTime)/1000;
     if(dt > maxTime) { dt = maxTime; }
-
+        
     for(var i=0,len = boards.length;i<len;i++) {
       if(boards[i]) { 
         boards[i].step(dt);
@@ -97,7 +99,7 @@ var Game = new function() {
 
 
   this.setupMobile = function() {
-    var container = document.getElementById("container"),
+    var container = document.getElementById("gameArea"),
         hasTouch =  !!('ontouchstart' in window),
         w = window.innerWidth, h = window.innerHeight;
       

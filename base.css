@@ -48,15 +48,17 @@ table {
 }
 
 
-/* Center the container */
-#container {
-  padding-top:50px;
+/* Center the gameArea */
+#gameArea {
+  /*padding-top:50px;*/
   margin:0 auto;
-  width:480px;
+  /*width: 100%;*/
+  /*height: 100%;*/
 }
 
 /* Give canvas a background */
 canvas {
   background-color:black;
-
+  width: 100%;
+  height: 100%;
 }
