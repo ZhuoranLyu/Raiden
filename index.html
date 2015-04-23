@@ -21,12 +21,10 @@
     var numberOfPlayers = playersInfo.length;
     realTimeSimpleService.sendReliableMessage('Reliable');
     realTimeSimpleService.sendUnreliableMessage('Unreliable');
-    log("gotStartMatch: yourPlayerIndex=" + yourPlayerIndex + " numberOfPlayers=" + numberOfPlayers);
-    var scores = [];
-    for (var i = 0; i < numberOfPlayers; i++) {
-      scores.push(42);
-    }
-    realTimeSimpleService.endMatch(scores);
+    
+    Game.initialize("game",sprites,startGame);
+
+    // realTimeSimpleService.endMatch(scores);
   }
 
   function gotMessage(params) {

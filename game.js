@@ -296,8 +296,8 @@ Explosion.prototype.step = function(dt) {
   }
 };
 
-window.addEventListener("load", function() {
-  Game.initialize("game",sprites,startGame);
-});
+// window.addEventListener("load", function() {
+//   Game.initialize("game",sprites,startGame);
+// });
 
 
