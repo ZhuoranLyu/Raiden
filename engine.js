@@ -55,7 +55,7 @@ var Game = new function() {
   
 
   // Handle Input
-  var KEY_CODES = { 37:'left', 39:'right', 32 :'fire' };
+  var KEY_CODES = { 37:'left', 39:'right', 32 :'fire' , 38:'up', 40:'down'};
   this.keys = {};
 
   this.setupInput = function() {
@@ -96,7 +96,7 @@ var Game = new function() {
       console.log(secondsToReallyStart);
       
       Game.ctx.fillStyle = "#FFFFFF";
-      Game.ctx.font = '80px sans-serif';
+      Game.ctx.font = '40px sans-serif';
       Game.ctx.fillText("Start in", 0, Game.height / 3);
       Game.ctx.fillText(secondsToReallyStart + "seconds", 0, Game.height / 2); 
 
