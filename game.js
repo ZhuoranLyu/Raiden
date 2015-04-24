@@ -67,15 +67,15 @@ var playGame = function() {
 };
 
 var winGame = function() {
-  Game.setBoard(3,new TitleScreen("You win!", 
-                                  "Press fire to play again",
-                                  playGame));
+  window.realTimeSimpleService.endMatch([0]);
+  isOngoing = false;
+  Game.setBoard(3,new TitleScreen("You win!", "", playGame));
 };
 
 var loseGame = function() {
-  Game.setBoard(3,new TitleScreen("You lose!", 
-                                  "Press fire to play again",
-                                  playGame));
+  window.realTimeSimpleService.endMatch([0]);
+  isOngoing = false;
+  Game.setBoard(3,new TitleScreen("You lose!", "", playGame));
 };
 
 var Starfield = function(speed,opacity,numStars,clear) {

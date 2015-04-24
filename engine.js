@@ -76,12 +76,33 @@ var Game = new function() {
 
 
   var lastTime = new Date().getTime();
-  var maxTime = 1/30;
+  var maxTime = 1/10;
   // Game Loop
   this.loop = function() { 
-
+    if (!isOngoing){
+      return;
+    }
     var curTime = new Date().getTime();
     requestAnimationFrame(Game.loop);
+    
+    var secondsFromStart = Math.floor((new Date().getTime() - startMatchTime) / 1000);
+    //console.log(secondsFromStart);
+    if (secondsFromStart < 3) 
+    {
+      var secondsToReallyStart = 3 - secondsFromStart;
+      Game.ctx.fillStyle = "black";
+      Game.ctx.fillRect(0, 0, Game.width, Game.height);
+
+      console.log(secondsToReallyStart);
+      
+      Game.ctx.fillStyle = "#FFFFFF";
+      Game.ctx.font = '80px sans-serif';
+      Game.ctx.fillText("Start in", 0, Game.height / 3);
+      Game.ctx.fillText(secondsToReallyStart + "seconds", 0, Game.height / 2); 
+
+      return;
+    }
+    
     var dt = (curTime - lastTime)/1000;
     if(dt > maxTime) { dt = maxTime; }
         

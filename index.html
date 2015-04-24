@@ -21,7 +21,7 @@
     var numberOfPlayers = playersInfo.length;
     realTimeSimpleService.sendReliableMessage('Reliable');
     realTimeSimpleService.sendUnreliableMessage('Unreliable');
-    
+    startMatchTime = new Date().getTime();
     Game.initialize("game",sprites,startGame);
 
     // realTimeSimpleService.endMatch(scores);
@@ -35,6 +35,7 @@
 
   function gotEndMatch(endMatchScores) {
     log("gotEndMatch:" + endMatchScores);
+    
   }
 
   function setRealTimeSimpleService(realTimeSimpleService) {
