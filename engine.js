@@ -96,9 +96,10 @@ var Game = new function() {
       console.log(secondsToReallyStart);
       
       Game.ctx.fillStyle = "#FFFFFF";
-      Game.ctx.font = '40px sans-serif';
-      Game.ctx.fillText("Start in", 0, Game.height / 3);
-      Game.ctx.fillText(secondsToReallyStart + "seconds", 0, Game.height / 2); 
+      Game.ctx.font = '80px bangers';
+      Game.ctx.fillText(secondsToReallyStart, Game.width / 2 - 20, Game.height / 2);
+      Game.ctx.font = '40px bangers';
+      Game.ctx.fillText("Press SPACE to fire!", 20, Game.height / 3 * 2); 
 
       return;
     }
@@ -157,9 +158,7 @@ var Game = new function() {
     this.canvas.style.top="0px";
 
   };
-
 };
-
 
 var SpriteSheet = new function() {
   this.map = { }; 
@@ -181,7 +180,6 @@ var SpriteSheet = new function() {
                      Math.floor(x), Math.floor(y),
                      s.w, s.h);
   };
-
   return this;
 };
 
@@ -203,7 +201,6 @@ var TitleScreen = function TitleScreen(title,subtitle,callback) {
     ctx.fillText(subtitle,Game.width/2 - measure2.width/2,Game.height/2 + 40);
   };
 };
-
 
 var GameBoard = function() {
   var board = this;
@@ -292,8 +289,6 @@ var GameBoard = function() {
       }
     });
   };
-
-
 };
 
 var Sprite = function() { };
@@ -321,7 +316,6 @@ Sprite.prototype.draw = function(ctx) {
 Sprite.prototype.hit = function(damage) {
   this.board.remove(this);
 };
-
 
 var Level = function(levelData,callback) {
   this.levelData = [];

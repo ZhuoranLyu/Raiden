@@ -56,8 +56,6 @@ var level1 = [
   [ 22000,  25000, 400, 'wiggle', { x: 100 }]
 ];
 
-
-
 var playGame = function() {
   var board = new GameBoard();
   board.add(new PlayerShip());
@@ -209,7 +207,6 @@ PlayerMissile.prototype.step = function(dt)  {
   }
 };
 
-
 var Enemy = function(blueprint,override) {
   this.merge(this.baseParameters);
   this.setup(blueprint.sprite,blueprint);
@@ -289,8 +286,6 @@ EnemyMissile.prototype.step = function(dt)  {
   }
 };
 
-
-
 var Explosion = function(centerX,centerY) {
   this.setup('explosion', { frame: 0 });
   this.x = centerX - this.w/2;
@@ -305,9 +300,3 @@ Explosion.prototype.step = function(dt) {
     this.board.remove(this);
   }
 };
-
-// window.addEventListener("load", function() {
-//   Game.initialize("game",sprites,startGame);
-// });
-
-
