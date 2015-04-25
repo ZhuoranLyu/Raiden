@@ -8,7 +8,11 @@
   <meta name="viewport" content="width=device-width, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-   <script>
+  
+  <script src="virtualjoystick.js"></script> 
+  
+  <script>
+
   function log(msg) {
     console.log(msg);
     //alert(msg);
@@ -46,6 +50,8 @@
       gotEndMatch: gotEndMatch
     });
   }
+
+
   </script>
 
   <link rel="stylesheet" type="text/css" href="http://yoav-zibin.github.io/emulator/main.css">
@@ -66,6 +72,13 @@
   </div>
   <script src='engine.js'></script>
   <script src='game.js'></script>
+  <script>
+    var joystick = new VirtualJoystick({
+    mouseSupport  : true,
+    limitStickTravel: true,
+    stickRadius : 10
+  });
+  </script>
 </body>
 </html>
 

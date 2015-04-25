@@ -30,7 +30,7 @@ var OBJECT_PLAYER = 1,
 
 var startGame = function() {
   var ua = navigator.userAgent.toLowerCase();
-
+  Game.totalMissles = 0;
   // Only 1 row of stars
   if(ua.match(/android/)) {
     Game.setBoard(0,new Starfield(50,0.6,100,true));
@@ -167,7 +167,9 @@ var PlayerShip = function() {
     }
 
     this.reload-=dt;
-    if(Game.keys['fire'] && this.reload < 0) {
+    Game.totalMissles++;
+    //if(Game.keys['fire'] && this.reload < 0) {
+    if (Game.totalMissles % 10 === 0){
       Game.keys['fire'] = false;
       this.reload = this.reloadTime;
 
