@@ -59,6 +59,6 @@ table {
 /* Give canvas a background */
 #game {
   background-color:black;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
 }
