@@ -35,7 +35,7 @@ var meter = new FPSMeter(document.getElementById("gameArea"), {
     // Meter position
     position: 'absolute', // Meter position.
     zIndex:   100,         // Meter Z index.
-    left:     '110px',      // Meter left offset.
+    left:     '45%',      // Meter left offset.
     top:      '2px',      // Meter top offset.
     right:    'auto',     // Meter right offset.
     bottom:   'auto',     // Meter bottom offset.
