@@ -42,8 +42,9 @@
     
   }
 
-  function setRealTimeSimpleService(realTimeSimpleService) {
+  function setRealTimeSimpleService(realTimeSimpleService, randomService) {
     window.realTimeSimpleService = realTimeSimpleService;
+    window.randomService = randomService;
     realTimeSimpleService.init({
       gotStartMatch: gotStartMatch,
       gotMessage: gotMessage,
@@ -57,17 +58,17 @@
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js"></script>
   <script>
   angular.module('myApp', [])
-    .run(function (realTimeSimpleService, resizeGameAreaService) {
+    .run(function (realTimeSimpleService, resizeGameAreaService, randomService) {
     resizeGameAreaService.setWidthToHeight(0.667);
-    window.setRealTimeSimpleService(realTimeSimpleService);
+    window.setRealTimeSimpleService(realTimeSimpleService, randomService);
   });
   </script>
   <script>window.angularTranslationLanguages = ['en', 'zh'];</script>
   <!-- build:js http://yoav-zibin.github.io/emulator/dist/realTimeServices.2.min.js -->
-  <script crossorigin="anonymous" src="http://yoav-zibin.github.io/emulator/dist/realTimeSimpleServices.js"></script>
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.11/seedrandom.min.js'></script>
+  <script crossorigin="anonymous" src="http://yoav-zibin.github.io/emulator/dist/realTimeSimpleServices.2.js"></script>
   <script src="http://yoav-zibin.github.io/emulator/angular-translate/angular-translate.min.js"></script>
   <!-- /build -->
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.11/seedrandom.min.js'></script>
 
   <!-- For the game rules/instructions, I use carousel from Angular UI + Bootstrap -->
   <!-- build:css http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css -->

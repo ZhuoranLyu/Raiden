@@ -28,6 +28,8 @@ var OBJECT_PLAYER = 1,
     OBJECT_ENEMY_PROJECTILE = 8,
     OBJECT_POWERUP = 16;
 
+var randomIndex = 0;
+
 var startGame = function() {
   var ua = navigator.userAgent.toLowerCase();
   Game.totalMissles = 0;
@@ -98,8 +100,8 @@ var Starfield = function(speed,opacity,numStars,clear) {
   starCtx.fillStyle = "#FFF";
   starCtx.globalAlpha = opacity;
   for(var i=0;i<numStars;i++) {
-    starCtx.fillRect(Math.floor(Math.random()*stars.width),
-                     Math.floor(Math.random()*stars.height),
+    starCtx.fillRect(Math.floor(randomService.random(randomIndex++)*stars.width),
+                     Math.floor(randomService.random(randomIndex++)*stars.height),
                      2,
                      2);
   }
@@ -236,7 +238,7 @@ Enemy.prototype.step = function(dt) {
     this.board.remove(this);
   }
 
-  if(Math.random() < 0.01 && this.reload <= 0) {
+  if(randomService.random(randomIndex++) < 0.01 && this.reload <= 0) {
     this.reload = this.reloadTime;
     if(this.missiles == 2) {
       this.board.add(new EnemyMissile(this.x+this.w-2,this.y+this.h));
