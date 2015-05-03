@@ -57,7 +57,7 @@
   <link rel="stylesheet" type="text/css" href="http://yoav-zibin.github.io/emulator/main.css">
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
   <script>
-  angular.module('myApp', [])
+  angular.module('myApp', ['ngTouch', 'ui.bootstrap'])
     .run(function (realTimeSimpleService, resizeGameAreaService, randomService) {
     resizeGameAreaService.setWidthToHeight(0.667);
     window.setRealTimeSimpleService(realTimeSimpleService, randomService);
@@ -69,15 +69,10 @@
   <script src='http://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.11/seedrandom.min.js'></script>
 
   <!-- For the game rules/instructions, I use carousel from Angular UI + Bootstrap -->
-  <!-- build:css http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css -->
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.css">
-  <!-- /build -->
-  <!-- build:js http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-touch.min.js -->
-  <script crossorigin="anonymous" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-touch.js"></script>
-  <!-- /build -->
-  <!-- build:js http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js -->
-  <script crossorigin="anonymous" src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.js"></script>
-  <!-- /build -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-touch.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
 
 </head>
 
@@ -93,7 +88,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" ng-click="isHelpModalShown = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" ng-click="isHelpModalShown = false" onclick="isOngoing = true; Game.loop();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">
             {{ 'RULES_OF_RAIDEN' | translate }}
           </h4>
