@@ -51,7 +51,6 @@
     });
   }
 
-
   </script>
 
   <link rel="stylesheet" type="text/css" href="http://yoav-zibin.github.io/emulator/main.css">
@@ -63,10 +62,68 @@
     window.setRealTimeSimpleService(realTimeSimpleService);
   });
   </script>
-  <script src="http://yoav-zibin.github.io/emulator/dist/realTimeSimpleServices.min.js"></script>
+  <script>window.angularTranslationLanguages = ['en', 'zh'];</script>
+  <!-- build:js http://yoav-zibin.github.io/emulator/dist/realTimeServices.2.min.js -->
+  <script crossorigin="anonymous" src="http://yoav-zibin.github.io/emulator/dist/realTimeSimpleServices.2.js"></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.11/seedrandom.min.js'></script>
+  <!-- /build -->
 </head>
 
 <body ng-cloak ng-app="myApp">
+
+  <div style="position:absolute; bottom:5px; left: 5px">
+  <span ng-click="isHelpModalShown = true"
+      class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+  </div>
+
+  <div class="overlayModal" ng-show="isHelpModalShown" aria-hidden="true">
+    <div class="modal-backdrop in"></div>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" ng-click="isHelpModalShown = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">
+            {{ 'RULES_OF_RAIDEN' | translate }}
+          </h4>
+        </div>
+        <div class="modal-body">
+          <carousel style="height: 150px">
+            <slide>
+              <table>
+                <tr>
+                  <td>
+                    {{ 'RULES_SLIDE1' | translate }}
+                  </td>
+                  <td>
+                    <img src="imgs/HelpSlide1.png" style="height:100px;">
+                  </td>
+                </tr>
+              </table>
+            </slide>
+            <slide>
+              <table>
+                <tr>
+                  <td>
+                  {{ 'RULES_SLIDE2' | translate }}
+                  </td>
+                  <td>
+                    <img src="imgs/HelpSlide2.png" style="height:100px;">
+                  </td>
+                </tr>
+              </table>
+            </slide>
+          </carousel>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="isHelpModalShown = false">
+            {{ 'CLOSE' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div id='gameArea'>
     <canvas id='game' width='320' height='480'></canvas>
   </div>
