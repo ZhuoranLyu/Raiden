@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   
-  <script src="virtualjoystick.js"></script> 
+  <script src="virtualisOngjoystick.js"></script> 
   
   <script>
 
@@ -58,7 +58,14 @@
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
   <script>
   angular.module('myApp', ['ngTouch', 'ui.bootstrap'])
-    .run(function (realTimeSimpleService, resizeGameAreaService, randomService) {
+    .run(function ($rootScope, realTimeSimpleService, resizeGameAreaService, randomService) {
+    $rootScope.changeIsOngoing = function (newValue) {
+      isOngoing = newValue;
+      $rootScope.isHelpModalShown = !newValue;
+      if (newValue) {
+        Game.loop();
+      }
+    };
     resizeGameAreaService.setWidthToHeight(0.667);
     window.setRealTimeSimpleService(realTimeSimpleService, randomService);
   });
@@ -79,7 +86,7 @@
 <body ng-cloak ng-app="myApp">
 
   <div style="position:absolute; bottom:5px; left: 5px">
-  <span ng-click="isHelpModalShown = true; " onclick="isOngoing = false;"
+  <span ng-click="changeIsOngoing(false);"
       class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
   </div>
 
@@ -122,7 +129,7 @@
           </carousel>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" ng-click="isHelpModalShown = false" onclick="isOngoing = true; Game.loop();">
+          <button type="button" class="btn btn-primary" ng-click="changeIsOngoing(true);">
             {{ 'CLOSE' | translate }}
           </button>
         </div>
