@@ -61,6 +61,7 @@ var level1 = [
 var playGame = function() {
   var board = new GameBoard();
   board.add(new PlayerShip());
+  board.add(new PlayerShip("secondPlayer"));
   board.add(new Level(level1,winGame));
   Game.setBoard(3,board);
   Game.setBoard(5,new GamePoints(0));
@@ -139,11 +140,14 @@ var Starfield = function(speed,opacity,numStars,clear) {
   };
 };
 
-var PlayerShip = function() { 
+var PlayerShip = function(secondPlayer) { 
   this.setup('ship', { vx: 0, reloadTime: 0.25, maxVel: 200 , vy: 0});
-
+  var positionOffset = 0;
+  if (secondPlayer) {
+    positionOffset = 70;
+  }
   this.reload = this.reloadTime;
-  this.x = Game.width/2 - this.w / 2;
+  this.x = Game.width/2 - this.w / 2 - positionOffset;
   this.y = Game.height - Game.playerOffset - this.h;
 
   this.step = function(dt) {
@@ -175,6 +179,10 @@ var PlayerShip = function() {
 
       this.board.add(new PlayerMissile(this.x,this.y+this.h/2));
       this.board.add(new PlayerMissile(this.x+this.w,this.y+this.h/2));
+      if (secondPlayer) {
+        this.board.add(new PlayerMissile(this.x + positionOffset,this.y+this.h/2));
+        this.board.add(new PlayerMissile(this.x+this.w + positionOffset,this.y+this.h/2));
+      }
     }
   };
 };
