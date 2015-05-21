@@ -22,7 +22,7 @@
     isOngoing = true;
     var yourPlayerIndex = params.yourPlayerIndex;
     var playersInfo = params.playersInfo;
-    var numberOfPlayers = playersInfo.length;
+    numberOfPlayers = playersInfo.length;
     realTimeSimpleService.sendReliableMessage('Reliable');
     realTimeSimpleService.sendUnreliableMessage('Unreliable');
     startMatchTime = new Date().getTime();

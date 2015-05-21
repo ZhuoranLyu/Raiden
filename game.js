@@ -60,8 +60,11 @@ var level1 = [
 
 var playGame = function() {
   var board = new GameBoard();
-  board.add(new PlayerShip());
-  board.add(new PlayerShip("secondPlayer"));
+  for (i = 0; i < numberOfPlayers; i++)
+  {
+    board.add(new PlayerShip(i));
+  }
+  //board.add(new PlayerShip("secondPlayer"));
   board.add(new Level(level1,winGame));
   Game.setBoard(3,board);
   Game.setBoard(5,new GamePoints(0));
@@ -177,12 +180,17 @@ var PlayerShip = function(secondPlayer) {
       Game.keys['fire'] = false;
       this.reload = this.reloadTime;
 
-      this.board.add(new PlayerMissile(this.x,this.y+this.h/2));
-      this.board.add(new PlayerMissile(this.x+this.w,this.y+this.h/2));
+      for (i = 0; i < numberOfPlayers; i++){
+        this.board.add(new PlayerMissile(this.x + i * positionOffset,this.y+this.h/2));
+        this.board.add(new PlayerMissile(this.x+this.w + i * positionOffset,this.y+this.h/2));
+      }
+
+      /*
       if (secondPlayer) {
         this.board.add(new PlayerMissile(this.x + positionOffset,this.y+this.h/2));
         this.board.add(new PlayerMissile(this.x+this.w + positionOffset,this.y+this.h/2));
       }
+      */
     }
   };
 };
